@@ -2,11 +2,13 @@ var express = require("express");
 var exphbs = require("express-handlebars");
 var db = require("./models");
 var bodyParser = require("body-parser");
-var methodOverride = require("method-override");
+//var methodOverride = require("method-override");
 var sequelize = require("sequelize");
 var mysql2 = require("mysql2");
+
 var PORT = process.env.PORT || 3000;
 var app = express();
+
 // Serve static content for the app from the "public" directory in the application directory.
 app.use(express.static(__dirname + "/public"));
 
@@ -39,3 +41,14 @@ db.sequelize.sync().then(function() {
     console.log("App listening on PORT " + PORT);
   });
 });
+
+if (process.env.JAWSDB_URL){
+  connection = mysql.createConnection(process.env.JAWSDB_URL);
+} else {
+  connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: 'D1ssolve',
+    database: 'sequelized_burgers_db'
+  });
+};
